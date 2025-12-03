@@ -1,4 +1,4 @@
-remote_theme: jekyller/spectral
+remote_theme: pages-themes/cayman@v0.2.0
 title: Have People gotten more Health-Conscious as Time Goes on
 plugins:
 - jekyll-remote-theme
