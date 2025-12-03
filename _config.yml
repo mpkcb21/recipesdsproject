@@ -1,4 +1,4 @@
-remote_theme: barryclark/jekyll-now
+remote_theme: jekyller/phantom
 title: Have People gotten more Health-Conscious as Time Goes on
 plugins:
 - jekyll-remote-theme
