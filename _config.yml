@@ -1,4 +1,4 @@
-remote_theme: pages-themes/midnight@v0.2.0
+remote_theme: pages-themes/moonwalk@v0.2.0
 title: Have People gotten more Health-Conscious as Time Goes on
 plugins:
 - jekyll-remote-theme
