@@ -1,4 +1,4 @@
-remote_theme: moonwalk
+remote_theme: tedivm/jekyll-theme-portfolio
 title: Have People gotten more Health-Conscious as Time Goes on
 plugins:
 - jekyll-remote-theme
