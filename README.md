@@ -82,7 +82,12 @@ When we read in our data, it was not ideal to work with for our exploratory anal
 
 For our univariate analysis, we looked at the distribution of reviewer experience or our reviewer counts columns distribution. We found that it had a long left tail, which means that more people have less reviews and few people have a lot of reviews. We found that the distrution had a majority between 0 and 400 reviews.
 
-Img
+<iframe
+  src="univar.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 # Bivariate Analysis
 
@@ -91,7 +96,7 @@ For our bivariate analysis, we examined how average recipe ratings differ across
 When comparing the mean ratings across these groups higher-experience users had the highest average ratings, while lower-experience users had the lowest. Meaning more active reviewers tend to rate recipes more higher on average, whereas users with little reviewing history are more likely to give lower scores.
 
 <iframe
-  src="univar.html"
+  src="bivar.html"
   width="800"
   height="600"
   frameborder="0"
