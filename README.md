@@ -150,7 +150,65 @@ This categorization provides a structured way to interpret rating behavior beyon
 # NMAR Analysis 
 We believe the text column in the reviews dataset is Not Missing At Random. New or less experienced reviewers may feel less confident sharing their opinions, especially knowing that other, more experienced users can see and respond to their reviews. Because of this, newer reviewers might avoid writing a text review out of fear of being judged or saying something that goes against the general opinion. This means the likelihood of writing a review depends on who the user is and how comfortable they feel, not on random chance.
 
-#
+# Dependency Testing 
+For this portion of the project, we tested whether the rating column's missingness is dependent on other columns or if it was missing completely at random. The two columns we tested on were **user_review_counts** and **minutes** 
+
+## User Review Count vs Rating Missing Analysis
+
+**Null Hypothesis:** The missingness of the ratings does not depend on the user review count of the user rating the recipe
+
+
+**Alternate Hypothesis:** The missingness of the ratings does depend on the user review count of the user rating the recipe
+
+
+**Test statistic:** = The difference of means in the user review count of the distribution of the population without missing ratings and with missing ratings
+
+**Significance Level:** = 0.05
+
+<iframe
+  src="userreviewcountdist.png"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
+
+We ran a permutation test, sampling 10000 random permutations of ratings to simulate 10000 different test statistics so we could see if the observed test statistic was statistically significant, and if there was a missing dependency with User review counts
+
+<iframe
+  src="userreviewhyp.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
+
+**Since our p-value was 0, which is below the 0.05 significance level, we can reject the null hypothesis. This means there is significant statistical evidence that the missingness in the rating column is not random and depends on the user review count, meaning rating missingness is MAR.**
+
+## Minutes vs Rating Missing Analysis
+
+**Null Hypothesis:** The missingness of the ratings does not depend on the amount of minutes it takes to complete a recipe
+
+
+**Alternate Hypothesis:** The missingness of the ratings does depend on the amount of minutes it takes to complete a recipe
+
+**Test statistic:** = The difference of means in the minutes it takes for a recipe of the distribution of the population without missing ratings and with missing ratings
+
+**Significance Level:** = 0.05
+
+<iframe
+  src="minutesdist.png"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
+
+We ran a permutation test, sampling 1000 random permutations of ratings to simulate 1000 different test statistics, so we could see if the observed test statistic was statistically significant, and there is a Missing dependency with minutes
+
+<iframe
+  src="minutesmissinghyp.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
 
 
 
