@@ -60,7 +60,6 @@ When we read in our data, it was not ideal to work with for our exploratory anal
 8. Look at the correlation between all relevant columns and rating, the largest coefficient is user_id, although weak, but it is negative. Even though user id is a categorical value, depending on if newer users have a larger user id in terms of numerical value, it could mean that newer users rate lower on average
 
 (Our final dataframe after all this had 234429 and 26 columns, but here is a shortened dataset of the columns we actually used)
-`combined`
 
 ### Combined Dataset Preview
 
@@ -77,6 +76,8 @@ When we read in our data, it was not ideal to work with for our exploratory anal
 | 234426 | 298509 | 2008 | 1.0  | 866651     | 1.0               |
 | 234427 | 298509 | 2010 | 5.0  | 1546277    | 1.0               |
 | 234428 | 298509 | 2014 | NaN  | 1803287907 | 1.0               |
+
+
 
 
 
