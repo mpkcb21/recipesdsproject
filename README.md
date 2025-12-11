@@ -78,6 +78,8 @@ When we read in our data, it was not ideal to work with for our exploratory anal
 | 234428 | 298509 | 2014 | NaN  | 1803287907 | 1.0               |
 
 
+# Univariate Analysis 
+
 
 
 
