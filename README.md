@@ -90,7 +90,12 @@ For our bivariate analysis, we examined how average recipe ratings differ across
 
 When comparing the mean ratings across these groups higher-experience users had the highest average ratings, while lower-experience users had the lowest. Meaning more active reviewers tend to rate recipes more higher on average, whereas users with little reviewing history are more likely to give lower scores.
 
-IMG
+<iframe
+  src="univar.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 # Interesting Aggregates 
 
