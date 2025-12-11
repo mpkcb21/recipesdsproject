@@ -80,6 +80,59 @@ When we read in our data, it was not ideal to work with for our exploratory anal
 
 # Univariate Analysis 
 
+For our univariate analysis, we looked at the distribution of reviewer experience or our reviewer counts columns distribution. We found that it had a long left tail, which means that more people have less reviews and few people have a lot of reviews. We found that the distrution had a majority between 0 and 400 reviews.
+
+Img
+
+# Bivariate Analysis
+
+For our bivariate analysis, we examined how average recipe ratings differ across three reviewer experience groups. We created these groups using pd.qcut on the user_review_count column, which evenly splits users into low, medium, and high activity categories based on how many reviews they have previously written.
+
+When comparing the mean ratings across these groups higher-experience users had the highest average ratings, while lower-experience users had the lowest. Meaning more active reviewers tend to rate recipes more higher on average, whereas users with little reviewing history are more likely to give lower scores.
+
+IMG
+
+# Interesting Aggregates 
+
+To better understand why certain recipes fail to receive a perfect 5-star rating, we created groups that represent different possible explanations for non-perfect ratings. Each recipe was assigned to one of four categories: Perfect, User-Preference/Flaw, Recipe Flaw Likely, and Disagreement-Driven. These categories were constructed by **aggregating** both the mean and standard deviation of each recipe’s ratings and applying thresholds (mean < 4) (sd > 1) to separate them meaningfully.
+
+The logic behind these groups is as follows:
+
+ - Perfect recipes have an average rating of exactly 5 and therefore require no further explanation.
+
+ - Recipes with a high mean rating but low standard deviation indicate that users generally agree the recipe is good. If such a recipe does not achieve a perfect score, it is likely due to individual user preference or user-specific issues, rather than the recipe itself.
+
+ - Recipes with a high mean rating but high standard deviation show strong disagreement among reviewers. Although the average may appear strong, the wide variation suggests that some users rated the recipe much lower. These cases fall under Disagreement-Driven, meaning the outcome cannot be attributed solely to recipe quality or user behavior.
+
+ - Finally, recipes with a mean rating below 4 are categorized as Recipe Flaw Likely, since ratings this low are rare in the dataset and strongly suggest genuine quality issues, regardless of variation.
+
+This categorization provides a structured way to interpret rating behavior beyond simple averages. It also highlights that non-perfect ratings can stem from diverse sources — not just recipe flaws, but also user variability and disagreement across reviewers.
+
+### Distribution of Issue Types (mean < 4) (sd > 1)
+
+| Issue Type              | Proportion |
+|-------------------------|-----------:|
+| Perfect                 | 0.588669   |
+| User-Preference/Flaw    | 0.312739   |
+| Recipe Flaw Likely      | 0.065909   |
+| Disagreement-Driven     | 0.032683   |
+
+
+IMG 
+
+**This graph shows us the distribution of different groups, the majority of points are clustered at 5**
+
+# Missingness Analysis
+
+# NMAR Analysis 
+
+
+
+
+
+
+
+
 
 
 
