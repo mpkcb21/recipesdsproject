@@ -44,20 +44,28 @@ We used the `recipe` and `interactions` datasets to complete this project. Here'
 
 When we read in our data, it was not ideal to work with for our exploratory analysis, so we conducted the following steps to properly clean our data. 
 
-1. Left Merge our recipes and interactions datasets on id and recipe_id (this helped us make sure that every review in the interactions dataset is a review to a recipe that we have data for)
+### Data Cleaning Steps
 
-2. We filled all ratings that were 0 with np.nan as they were missing
+1. **Left merge the recipes and interactions datasets** on `id` and `recipe_id`.  
+   This ensured that every review in the interactions dataset matched a recipe that we had metadata for.
 
-3. Since we knew from the dsc80 website that our nutritional information was in a list in the form of a string, we needed to make it a list type.
-   - Convert the values in the list to a float so we can actually use the nutritional information
+2. **Replace all ratings of 0 with `np.nan`**, since a rating of 0 indicates missingness in the Food.com dataset rather than an actual rating.
 
-5. Convert the `submitted` column to dateime so it is easier and more versatile to use
+3. **Convert the `nutrition` column from a string to a list**, since the Food.com dataset stores nutritional information as a stringified list.  
+   - After converting to a true list, each element was cast to `float` so nutritional values could be used numerically.
 
-6. convert `user_id` and `recipe_id` back to int types because when we merged it turned to floats and looked really messy
+4. **Convert the `submitted` column to datetime** to allow more flexible and accurate time-based operations.
 
-7. Make the `user_review_counts` feature by grouping by user_id and taking the size of the dataframe, then merging it back into the combined dataframe on user_id (this was a clean step because our dataframe had 234429 rows before and after the merge)
+5. **Convert `user_id` and `recipe_id` back to integers.**  
+   These columns became floats after merging, which was both visually messy and incorrect for ID fields.
 
-8. Look at the correlation between all relevant columns and rating, the largest coefficient is user_id, although weak, but it is negative. Even though user id is a categorical value, depending on if newer users have a larger user id in terms of numerical value, it could mean that newer users rate lower on average
+6. **Create the `user_review_count` feature** by grouping by `user_id` and counting how many total reviews each user has written.  
+   This feature was merged back into the combined dataset, and the row count remained the same (234,429), confirming the merge did not duplicate or drop rows.
+
+7. **Examine correlations between numeric columns and rating.**  
+   The largest coefficient was associated with `user_id`, which (despite being categorical) showed a weak negative relationship with rating. This may suggest that newer users (with higher user IDs) tend to rate slightly lower on average.
+
+
 
 (Our final dataframe after all this had 234429 and 26 columns, but here is a shortened dataset of the columns we actually used)
 
@@ -128,13 +136,22 @@ This categorization provides a structured way to interpret rating behavior beyon
 | Disagreement-Driven     | 0.032683   |
 
 
-IMG 
+<iframe
+  src="interestingagg.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
 
 **This graph shows us the distribution of different groups, the majority of points are clustered at 5**
 
 # Missingness Analysis
 
 # NMAR Analysis 
+We believe the text column in the reviews dataset is Not Missing At Random. New or less experienced reviewers may feel less confident sharing their opinions, especially knowing that other, more experienced users can see and respond to their reviews. Because of this, newer reviewers might avoid writing a text review out of fear of being judged or saying something that goes against the general opinion. This means the likelihood of writing a review depends on who the user is and how comfortable they feel, not on random chance.
+
+#
+
 
 
 
