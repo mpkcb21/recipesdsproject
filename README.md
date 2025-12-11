@@ -28,6 +28,7 @@ We used the `recipe` and `interactions` datasets to complete this project. Here'
                                                  
 
 (83782 rows and 10 columns)
+
 `interactions`
 | Column        | Description                                                                                  |
 | :------------ | :------------------------------------------------------------------------------------------- |
@@ -36,6 +37,7 @@ We used the `recipe` and `interactions` datasets to complete this project. Here'
 | `date`        | Date the interaction (rating/review) was submitted                                          |
 | `rating`      | User rating for the recipe (0–5, where 0 indicates a missing rating)                        |
 | `review`      | Optional user-written text review                                                           |
+
 (731927 rows, 5 columns)
 
 
