@@ -238,7 +238,24 @@ We performed the permutation test by simulating 1000 different permutations and 
 Since our p-value was 0, which is below the 0.05 significance level, we can reject the null hypothesis. This gives us strong statistical evidence that low-activity users rate recipes lower than other users, showing that reviewer experience plays a noticeable role in rating behavior. This could be true because there is higher variation in the average rating for a newer user as they have not rated as many recipes, so they tend to just give lower ratings at the beginning, and as they get better at cooking or as they find better recipes they tend to rate things higher. 
 
 # Framing a Prediction Problem
+For our prediction task, we chose a binary classification problem. We aim to build a model that predicts whether a recipe rating will be good or bad. We define good ratings as scores of 4 or 5, while ratings of 1, 2, or 3 are treated as bad. This setup allows us to focus on distinguishing strong user approval from more critical reviews, and it gives our model a clear yes-or-no decision to learn from.  By structuring the task this way, we can investigate which factors are most useful for identifying lower ratings and evaluate how well our model can detect them. We used the F1 score to evaluate our models because it gives us a single metric that balances precision and recall, helping us evaluate the model’s overall performance when dealing with imbalanced classes like good and bad ratings, however the biggest change between the models that we wanted to see was in the precision, as because of class imbalance the baseline almost always predicted True. 
+### Why not 5-star vs less than 5-star 
+The reason we moved away from predicting a 5 vs everything else was that we tried doing this, and we realized that by doing this, we capped how good our model can be, as the difference between a 4 and a 5 was very minimal, and it was just very hard to predict with a high F1 score. 
+# Baseline Model
+For our baseline model, we trained a decision tree classifier. To train this model, we used the **user_review_counts** column and we created a new column called **recipe_review_count**, which just has the amount of reviews a recipe has as features. We thought this would be a good feature because if a recipe has a lot of reviews, it probably means a lot of people liked it. 
 
+The baseline model achieved an F1 score of around 0.93, which may seem strong at first, but this performance is largely due to heavy class imbalance in our dataset. Since most ratings are good (4 or 5), the model tends to predict “good” by default most of the time, leading to inflated overall performance but relatively weak precision when identifying the less common bad ratings. This gives us a reasonable starting point, but also shows that we need a more expressive model to handle the imbalance and improve the quality of predictions on the minority class.
+
+<iframe
+  src="baselinemodelconfusionmatrix.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
+
+This confusion matrix shows that it rarely gets "negative" reviews right and has a lot of False positives. 
+
+# Final Model
 
 
 
