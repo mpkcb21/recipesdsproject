@@ -210,6 +210,35 @@ We ran a permutation test, sampling 1000 random permutations of ratings to simul
   frameborder="0"
 ></iframe> 
 
+**Because our p-value was 0.1171, which is greater than the 0.05 significance level, we cannot reject the null hypothesis. We do not have enough statistical evidence to say that rating missingness depends on the minutes column.**
+
+# Hypothesis Testing
+
+The goal of this project was to see why ratings under 5 stars happen and throughout or bivariate and univariate analysis there were many fingers pointing towards how many reviews a user has given before or a users amount of experience on the app. To determine whether reviewer experience affects rating behavior, we performed a permutation test comparing the average ratings of Low Activity users to those of all other users. The reviewer groups were created earlier using pd.qcut on the user_review_count column, allowing us to classify users into Low, Medium, and High activity levels. Our goal being to test whether low-activity users tend to give lower ratings than more experienced reviewers. 
+
+**Null Hypothesis:** Low activity users rate on the same scale as higher activity users (split is classified from the pdqcut in the exploratory analysis portion)
+
+
+**Alternative Hypothesis:** Low activity users tend to rate on a lower scale compared to higher activity users 
+
+
+**Test Statistic:** The difference in mean rating between low activity users and higher activity users
+
+**Significance Level:** = 0.05
+
+We performed the permutation test by simulating 1000 different permutations and computing 1000 simulated test statistics to find if the observed test statistic was statistically significant, and low activity users really do rate lower than higher activity users. We used a permutation test because we saw it fit well with our question, since we wanted to see if two different groups of ratings came from the same population.  
+
+<iframe
+  src="hypothesistest.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
+
+Since our p-value was 0, which is below the 0.05 significance level, we can reject the null hypothesis. This gives us strong statistical evidence that low-activity users rate recipes lower than other users, showing that reviewer experience plays a noticeable role in rating behavior. This could be true because there is higher variation in the average rating for a newer user as they have not rated as many recipes, so they tend to just give lower ratings at the beginning, and as they get better at cooking or as they find better recipes they tend to rate things higher. 
+
+# Framing a Prediction Problem
+
 
 
 
