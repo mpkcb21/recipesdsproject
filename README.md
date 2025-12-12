@@ -161,7 +161,7 @@ For this portion of the project, we tested whether the rating column's missingne
 **Alternate Hypothesis:** The missingness of the ratings does depend on the user review count of the user rating the recipe
 
 
-**Test statistic:** = The difference of means in the user review count of the distribution of the population without missing ratings and with missing ratings
+**Test statistic:** = The difference of means in the user review count of the distribution of the population without missing ratings and with missing ratings (-410.22)
 
 **Significance Level:** = 0.05
 
@@ -190,7 +190,7 @@ We ran a permutation test, sampling 10000 random permutations of ratings to simu
 
 **Alternate Hypothesis:** The missingness of the ratings does depend on the amount of minutes it takes to complete a recipe
 
-**Test statistic:** = The difference of means in the minutes it takes for a recipe of the distribution of the population without missing ratings and with missing ratings
+**Test statistic:** = The difference of means in the minutes it takes for a recipe of the distribution of the population without missing ratings and with missing ratings (observed = 51.45)
 
 **Significance Level:** = 0.05
 
@@ -222,7 +222,7 @@ The goal of this project was to see why ratings under 5 stars happen and through
 **Alternative Hypothesis:** Low activity users tend to rate on a lower scale compared to higher activity users 
 
 
-**Test Statistic:** The difference in mean rating between low activity users and higher activity users
+**Test Statistic:** The difference in mean rating between low activity users and higher activity users (observed = -0.18)
 
 **Significance Level:** = 0.05
 
@@ -296,7 +296,36 @@ The final model achieved an **F1 score of around 0.95**, which is a slight impro
 
 This shows that including text and user behavior features helped the model become much more balanced and reliable when predicting lower ratings. Overall, the final model performed noticeably better than the baseline and provides meaningful improvements in precision  for the minority class. 
 
-I also want to add that this was not that complex of a predictive task as there was major class imbalance as over 80 percent of the data was actually a 1 so the hardest part of this task was to make it predict a bad rating accurately. 
+I also want to add, that this was not that complex of a predictive task as there was major class imbalance because over 80 percent of the data was actually a 1, so the hardest part of this task was to make it predict a bad rating accurately. 
+
+# Fairness Analysis
+
+To evaluate the Fairness of our final model, we split the population into even groups (high and low experience), but this time we used the median to split the data so we would have approximately the same number of people in each group, instead of doing low experience vs middle + high as we did in previous hypothesis testing. We chose to evaluate the **F1 Parity** between the two groups because we had observed significant differences between the two populations through hypothesis testing before, and we believed that the difference in F1 score would likely provide us with the necessary information about the fairness of our model. 
+
+**Null Hypothesis:** The f1 score of the model is the same and is fair for low activity users and high activity users 
+
+
+**Alternative Hypothesis:** The f1 score of the model is different for low activity users compared to high activity users
+
+
+**Test Statistic:** high activity users f1 minus low activity users f1 (observed = 0.0066)
+
+
+**Significance Level:** 0.05
+
+
+<iframe
+  src="fairnessanalysisplot.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
+
+Our p-value was 0, so we reject the null hypothesis. This means that our model was not fair and evaluated higher-experienced users a lot more accurately than lower-experienced users. Using the information from our project, this was probably expected because lower-experienced users tend to rate lower, meaning the amount of actual negatives in the population is a lot higher than the other population. As we saw in our final model, although it improved at predicting negatives, it still generated a lot of false positives. 
+
+
+
+
 
 
 
