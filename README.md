@@ -260,29 +260,29 @@ This confusion matrix shows that it rarely gets "negative" reviews right and has
 For our final model, we used three main features, `review_text`, `user_avg_rating_past`, and `recipe_review_count`
 
 
-### `review_text` (TF-IDF)
+`review_text` (TF-IDF)
 
 This column contains the text from each user’s review. We included it because review language often reflects sentiment and satisfaction. TF-IDF vectorizer allows us to convert the text into numerical features that show us which words matter most in order to classify a review as a 1. Since the written text provides direct insight into a user’s experience, this feature became one of the strongest predictors in our model.
 
 
-### `user_avg_rating_past`
+`user_avg_rating_past`
 
 This feature measures a user’s average rating outside of the current review. We learned that users differ widely in their rating behavior — low-activity users tend to rate lower, and some users consistently give higher ratings than others. Including this feature helps the model learn each user’s general rating style. We engineered it carefully to avoid leakage by subtracting the current rating when computing the cumulative average. (So we are not using the value to predict itself) This was basically just a more meaningful way of using user_review_counts as we used technically used this feature (-1) to compute the average raitng by a user. (Denominator of the equation used to compute this feature)
 
 
-### `recipe_review_count`
+`recipe_review_count`
 
 This feature tracks how many reviews a recipe had received before the current one. We thought this would be a good feature because if a recipe has a lot of reviews, it probably means a lot of people liked it. Including this feature helps the model account for whether a recipe is already relatively new or well established, the latter probably helps it predict 1s accurately based off our reasoning.
 
 
-## Modeling Approach
+### Modeling Approach
 
 We used a **ColumnTransformer** to apply TF-IDF to the review text and a mean imputer to the other features. The classifier for the final model was **Logistic Regression**, and we used GridSearchCV to tune the hyperparameters `C` (regularization strength) and `class_weight`. The best combination was `C = 1` and no class weighting.
 
 Logistic Regression works well with high-dimensional TF-IDF data and avoids the overfitting issues that can occur with more complex models when dealing with sparse text features.
 
 
-## Results
+### Results
 
 The final model achieved an **F1 score of around 0.95**, which is a slight improvement over the baseline. The biggest improvement came from the model’s ability to correctly identify **bad** ratings. In the baseline model, almost every prediction was labeled as good, resulting in very few true negatives. In contrast, the final model increased true negatives from around 50 to over **2,400**, while still maintaining strong accuracy on good ratings.
 
