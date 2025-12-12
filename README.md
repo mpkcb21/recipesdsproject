@@ -242,9 +242,9 @@ For our prediction task, we chose a binary classification problem. We aim to bui
 ### Why not 5-star vs less than 5-star 
 The reason we moved away from predicting a 5 vs everything else was that we tried doing this, and we realized that by doing this, we capped how good our model can be, as the difference between a 4 and a 5 was very minimal, and it was just very hard to predict with a high F1 score. 
 # Baseline Model
-For our baseline model, we trained a decision tree classifier. To train this model, we used the **user_review_counts** column and we created a new column called **recipe_review_count**, which just has the amount of reviews a recipe has as features. We thought this would be a good feature because if a recipe has a lot of reviews, it probably means a lot of people liked it. 
+For our baseline model, we trained a decision tree classifier. To train this model, we used the **user_review_counts** column and we created a new column called **recipe_review_count**, which just has the amount of reviews a recipe has as features. 
 
-The baseline model achieved an F1 score of around 0.93, which may seem strong at first, but this performance is largely due to heavy class imbalance in our dataset. Since most ratings are good (4 or 5), the model tends to predict “good” by default most of the time, leading to inflated overall performance but relatively weak precision when identifying the less common bad ratings. This gives us a reasonable starting point, but also shows that we need a more expressive model to handle the imbalance and improve the quality of predictions on the minority class.
+The baseline model achieved an **F1 score of around 0.93**, which may seem strong at first, but this performance is largely due to heavy class imbalance in our dataset. Since most ratings are good (4 or 5), the model tends to predict “good” by default most of the time, leading to inflated overall performance but relatively weak precision when identifying the less common bad ratings. This gives us a reasonable starting point, but also shows that we need a more expressive model to handle the imbalance and improve the quality of predictions on the minority class.
 
 <iframe
   src="baselinemodelconfusionmatrix.html"
@@ -256,6 +256,49 @@ The baseline model achieved an F1 score of around 0.93, which may seem strong at
 This confusion matrix shows that it rarely gets "negative" reviews right and has a lot of False positives. 
 
 # Final Model
+
+For our final model, we used three main features, `review_text`, `user_avg_rating_past`, and `recipe_review_count`
+
+
+### `review_text` (TF-IDF)
+
+This column contains the text from each user’s review. We included it because review language often reflects sentiment and satisfaction. TF-IDF vectorizer allows us to convert the text into numerical features that show us which words matter most in order to classify a review as a 1. Since the written text provides direct insight into a user’s experience, this feature became one of the strongest predictors in our model.
+
+
+### `user_avg_rating_past`
+
+This feature measures a user’s average rating outside of the current review. We learned that users differ widely in their rating behavior — low-activity users tend to rate lower, and some users consistently give higher ratings than others. Including this feature helps the model learn each user’s general rating style. We engineered it carefully to avoid leakage by subtracting the current rating when computing the cumulative average. (So we are not using the value to predict itself) This was basically just a more meaningful way of using user_review_counts as we used technically used this feature (-1) to compute the average raitng by a user. (Denominator of the equation used to compute this feature)
+
+
+### `recipe_review_count`
+
+This feature tracks how many reviews a recipe had received before the current one. We thought this would be a good feature because if a recipe has a lot of reviews, it probably means a lot of people liked it. Including this feature helps the model account for whether a recipe is already relatively new or well established, the latter probably helps it predict 1s accurately based off our reasoning.
+
+
+## Modeling Approach
+
+We used a **ColumnTransformer** to apply TF-IDF to the review text and a mean imputer to the other features. The classifier for the final model was **Logistic Regression**, and we used GridSearchCV to tune the hyperparameters `C` (regularization strength) and `class_weight`. The best combination was `C = 1` and no class weighting.
+
+Logistic Regression works well with high-dimensional TF-IDF data and avoids the overfitting issues that can occur with more complex models when dealing with sparse text features.
+
+
+## Results
+
+The final model achieved an **F1 score of around 0.95**, which is a slight improvement over the baseline. The biggest improvement came from the model’s ability to correctly identify **bad** ratings. In the baseline model, almost every prediction was labeled as good, resulting in very few true negatives. In contrast, the final model increased true negatives from around 50 to over **2,400**, while still maintaining strong accuracy on good ratings.
+
+<iframe
+  src="finalmodelconfusionmatrix.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe> 
+
+
+This shows that including text and user behavior features helped the model become much more balanced and reliable when predicting lower ratings. Overall, the final model performed noticeably better than the baseline and provides meaningful improvements in precision  for the minority class. 
+
+I also want to add that this was not that complex of a predictive task as there was major class imbalance as over 80 percent of the data was actually a 1 so the hardest part of this task was to make it predict a bad rating accurately. 
+
+
 
 
 
